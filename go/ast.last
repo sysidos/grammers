@@ -1,0 +1,100 @@
+
+// Ast
+
+class JSONValueA {
+	JSONObject JSONObject;
+	EmptyObject EmptyObject;
+	JSONArray JSONArray;
+	string JSONSTRING;
+}
+
+JSONText  : JSONValueA ::=
+	this=JSONValue_A
+;
+
+class JSONValue {
+	JSONObject JSONObject;
+	EmptyObject EmptyObject;
+	JSONArray JSONArray;
+	string JSONSTRING;
+}
+
+JSONValue  : JSONValue ::=
+	'null'
+  | 'true'
+  | 'false'
+  | 'B'
+  | {JSONObject}
+  | {EmptyObject}
+  | {JSONArray}
+  | JSONSTRING=JSONString
+  | JSONNumber
+;
+
+JSONValue_A  : JSONValueA ::=
+	'null'
+  | 'true'
+  | 'false'
+  | 'A'
+  | {JSONObject}
+  | {EmptyObject}
+  | {JSONArray}
+  | JSONSTRING=JSONString
+  | JSONNumber
+;
+
+class EmptyObject {
+	LookaheadEmptyObject lookaheadEmptyObject;
+}
+
+EmptyObject  : EmptyObject ::=
+	lookaheadEmptyObject=lookahead_EmptyObject '{' '}'
+;
+
+class LookaheadEmptyObject {
+}
+
+lookahead_EmptyObject  : LookaheadEmptyObject ::=
+	
+;
+
+class JSONObject {
+	LookaheadNotEmptyObject lookaheadNotEmptyObject;
+	list<*Field> JSONMemberList;
+}
+
+JSONObject  : JSONObject ::=
+	lookaheadNotEmptyObject=lookahead_notEmptyObject '{' {JSONMemberList}? '}'
+;
+
+class LookaheadNotEmptyObject {
+}
+
+lookahead_notEmptyObject  : LookaheadNotEmptyObject ::=
+	
+;
+
+JSONMember (*Field) ::=
+	JSONString ':' JSONValue
+;
+
+JSONMemberList  : list<*Field>
+	(this+=JSONMember
+		separator ',')+ ;
+
+class JSONArray {
+	list<JSONValueA> JSONElementList;
+}
+
+JSONArray  : JSONArray ::=
+	'[' JSONElementList=JSONElementListopt ']'
+;
+
+JSONElementList  : list<JSONValueA>
+	(this+=JSONValue_A
+		separator ',')+ ;
+
+JSONElementListopt  : list<JSONValueA> ::=
+	this=JSONElementList?
+;
+
