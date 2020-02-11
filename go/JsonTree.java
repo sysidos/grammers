@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import org.textmapper.json.JsonLexer.ErrorReporter;
 import org.textmapper.json.JsonParser.ParseException;
+import org.textmapper.json.ast.AstEmptyObject;
+import org.textmapper.json.ast.AstJSONValueA;
 
 public class JsonTree<T> {
 
@@ -39,7 +41,7 @@ public class JsonTree<T> {
 	}
 
 
-	public static JsonTree<Object> parseEmptyObject(TextSource source) {
+	public static JsonTree<AstEmptyObject> parseEmptyObject(TextSource source) {
 		final List<JsonProblem> list = new ArrayList<>();
 		ErrorReporter reporter = (message, line, offset, endoffset) ->
 				list.add(new JsonProblem(KIND_ERROR, message, line, offset, endoffset, null));
@@ -49,7 +51,7 @@ public class JsonTree<T> {
 			lexer.setLine(source.getInitialLine());
 
 			JsonParser parser = new JsonParser(reporter);
-			Object result = parser.parseEmptyObject(lexer);
+			AstEmptyObject result = parser.parseEmptyObject(lexer);
 
 			return new JsonTree<>(source, result, list);
 		} catch (ParseException ex) {
@@ -60,7 +62,7 @@ public class JsonTree<T> {
 		return new JsonTree<>(source, null, list);
 	}
 
-	public static JsonTree<Object> parseJSONText(TextSource source) {
+	public static JsonTree<AstJSONValueA> parseJSONText(TextSource source) {
 		final List<JsonProblem> list = new ArrayList<>();
 		ErrorReporter reporter = (message, line, offset, endoffset) ->
 				list.add(new JsonProblem(KIND_ERROR, message, line, offset, endoffset, null));
@@ -70,7 +72,7 @@ public class JsonTree<T> {
 			lexer.setLine(source.getInitialLine());
 
 			JsonParser parser = new JsonParser(reporter);
-			Object result = parser.parseJSONText(lexer);
+			AstJSONValueA result = parser.parseJSONText(lexer);
 
 			return new JsonTree<>(source, result, list);
 		} catch (ParseException ex) {

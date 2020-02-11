@@ -2,9 +2,18 @@ package org.textmapper.json;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import org.textmapper.json.JsonLexer.ErrorReporter;
 import org.textmapper.json.JsonLexer.Span;
 import org.textmapper.json.JsonLexer.Tokens;
+import org.textmapper.json.ast.AstEmptyObject;
+import org.textmapper.json.ast.AstJSONArray;
+import org.textmapper.json.ast.AstJSONObject;
+import org.textmapper.json.ast.AstJSONValue;
+import org.textmapper.json.ast.AstJSONValueA;
+import org.textmapper.json.ast.AstLookaheadEmptyObject;
+import org.textmapper.json.ast.AstLookaheadNotEmptyObject;
 
 public class JsonParser {
 
@@ -284,6 +293,188 @@ public class JsonParser {
 
 	@SuppressWarnings("unchecked")
 	protected void applyRule(Span tmLeft, int ruleIndex, int ruleLength) {
+		switch (ruleIndex) {
+			case 1:  // JSONValue : 'null'
+				tmLeft.value = new AstJSONValue(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 2:  // JSONValue : 'true'
+				tmLeft.value = new AstJSONValue(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 3:  // JSONValue : 'false'
+				tmLeft.value = new AstJSONValue(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 4:  // JSONValue : 'B'
+				tmLeft.value = new AstJSONValue(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 5:  // JSONValue : JSONObject
+				tmLeft.value = new AstJSONValue(
+						((AstJSONObject)tmStack[tmHead].value) /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 6:  // JSONValue : EmptyObject
+				tmLeft.value = new AstJSONValue(
+						null /* JSONObject */,
+						((AstEmptyObject)tmStack[tmHead].value) /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 7:  // JSONValue : JSONArray
+				tmLeft.value = new AstJSONValue(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						((AstJSONArray)tmStack[tmHead].value) /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 8:  // JSONValue : JSONString
+				tmLeft.value = new AstJSONValue(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						((string)tmStack[tmHead].value) /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 9:  // JSONValue : JSONNumber
+				tmLeft.value = new AstJSONValue(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 10:  // JSONValue_A : 'null'
+				tmLeft.value = new AstJSONValueA(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 11:  // JSONValue_A : 'true'
+				tmLeft.value = new AstJSONValueA(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 12:  // JSONValue_A : 'false'
+				tmLeft.value = new AstJSONValueA(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 13:  // JSONValue_A : 'A'
+				tmLeft.value = new AstJSONValueA(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 14:  // JSONValue_A : JSONObject
+				tmLeft.value = new AstJSONValueA(
+						((AstJSONObject)tmStack[tmHead].value) /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 15:  // JSONValue_A : EmptyObject
+				tmLeft.value = new AstJSONValueA(
+						null /* JSONObject */,
+						((AstEmptyObject)tmStack[tmHead].value) /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 16:  // JSONValue_A : JSONArray
+				tmLeft.value = new AstJSONValueA(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						((AstJSONArray)tmStack[tmHead].value) /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 17:  // JSONValue_A : JSONString
+				tmLeft.value = new AstJSONValueA(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						((string)tmStack[tmHead].value) /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 18:  // JSONValue_A : JSONNumber
+				tmLeft.value = new AstJSONValueA(
+						null /* JSONObject */,
+						null /* EmptyObject */,
+						null /* JSONArray */,
+						null /* JSONString */,
+						null /* input */, tmStack[tmHead].line, tmStack[tmHead].offset, tmStack[tmHead].endoffset);
+				break;
+			case 19:  // EmptyObject : lookahead_EmptyObject '{' '}'
+				tmLeft.value = new AstEmptyObject(
+						((AstLookaheadEmptyObject)tmStack[tmHead - 2].value) /* lookaheadEmptyObject */,
+						null /* input */, tmStack[tmHead - 2].line, tmStack[tmHead - 2].offset, tmStack[tmHead].endoffset);
+				break;
+			case 21:  // JSONObject : lookahead_notEmptyObject '{' JSONMemberList '}'
+				tmLeft.value = new AstJSONObject(
+						((AstLookaheadNotEmptyObject)tmStack[tmHead - 3].value) /* lookaheadNotEmptyObject */,
+						((List<*Field>)tmStack[tmHead - 1].value) /* JSONMemberList */,
+						null /* input */, tmStack[tmHead - 3].line, tmStack[tmHead - 3].offset, tmStack[tmHead].endoffset);
+				break;
+			case 22:  // JSONObject : lookahead_notEmptyObject '{' '}'
+				tmLeft.value = new AstJSONObject(
+						((AstLookaheadNotEmptyObject)tmStack[tmHead - 2].value) /* lookaheadNotEmptyObject */,
+						null /* JSONMemberList */,
+						null /* input */, tmStack[tmHead - 2].line, tmStack[tmHead - 2].offset, tmStack[tmHead].endoffset);
+				break;
+			case 25:  // JSONMemberList : JSONMember
+				tmLeft.value = new ArrayList();
+				((List<*Field>)tmLeft.value).add(((*Field)tmStack[tmHead].value));
+				break;
+			case 26:  // JSONMemberList : JSONMemberList ',' JSONMember
+				((List<*Field>)tmLeft.value).add(((*Field)tmStack[tmHead].value));
+				break;
+			case 27:  // JSONArray : '[' JSONElementListopt ']'
+				tmLeft.value = new AstJSONArray(
+						((List<AstJSONValueA>)tmStack[tmHead - 1].value) /* JSONElementList */,
+						null /* input */, tmStack[tmHead - 2].line, tmStack[tmHead - 2].offset, tmStack[tmHead].endoffset);
+				break;
+			case 28:  // JSONElementList : JSONValue_A
+				tmLeft.value = new ArrayList();
+				((List<AstJSONValueA>)tmLeft.value).add(((AstJSONValueA)tmStack[tmHead].value));
+				break;
+			case 29:  // JSONElementList : JSONElementList ',' JSONValue_A
+				((List<AstJSONValueA>)tmLeft.value).add(((AstJSONValueA)tmStack[tmHead].value));
+				break;
+		}
 	}
 
 	/**
@@ -292,11 +483,11 @@ public class JsonParser {
 	protected void dispose(Span value) {
 	}
 
-	public Object parseEmptyObject(JsonLexer lexer) throws IOException, ParseException {
-		return parse(lexer, 0, 42, true);
+	public AstEmptyObject parseEmptyObject(JsonLexer lexer) throws IOException, ParseException {
+		return (AstEmptyObject) parse(lexer, 0, 42, true);
 	}
 
-	public Object parseJSONText(JsonLexer lexer) throws IOException, ParseException {
-		return parse(lexer, 1, 44, false);
+	public AstJSONValueA parseJSONText(JsonLexer lexer) throws IOException, ParseException {
+		return (AstJSONValueA) parse(lexer, 1, 44, false);
 	}
 }

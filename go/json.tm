@@ -1,12 +1,12 @@
-language json(go);
+language json(java);
 
-lang = "json"
-package = "github.com/inspirer/textmapper/tm-go/parsers/json"
-eventBased = true
+prefix = "Json"
+breaks = true
+gentree = true
 genast = true
-genastdef = true
-reportTokens = [MultiLineComment, invalid_token, JSONString]
-extraTypes = ["NonExistingType"]
+positions = "line,offset"
+endpositions = "offset"
+package = "org.textmapper.json"
 
 :: lexer
 
